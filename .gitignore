@@ -1,0 +1,29 @@
+# Cartelle di output della compilazione
+/bin/
+/build/
+/target/
+
+# File e cartelle generati da Maven/Gradle
+*.iml
+/.classpath
+/.project
+/.settings/
+
+# Cartella delle impostazioni di VS Code
+.vscode/
+
+# File di sistema (macOS, Windows, Linux)
+.DS_Store
+Thumbs.db
+
+# File log
+*.log
+
+# File .class (bytecode Java)
+*.class
+
+# Altri file temporanei
+*.tmp
+
+# manifesto jar 
+original-aMULeto-1.0-SNAPSHOT.jar
