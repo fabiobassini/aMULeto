@@ -7,7 +7,7 @@
 
 
 <div align="center">
-  <img src="https://github.com/fabiobassini/aMULeto/blob/main/demo/amuleto.png" alt="Header" width="350"/>
+  <img src="https://github.com/fabiobassini/aMULeto/blob/main/demo/amuleto.png" alt="Header" width="350" style="border-radius: 35px;"/>
 </div>
 
 ## 📑 Table of Contents
