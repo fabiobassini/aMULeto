@@ -9,7 +9,12 @@ import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.type.Type;
 
+import net.sourceforge.plantuml.FileFormat;
+import net.sourceforge.plantuml.FileFormatOption;
+import net.sourceforge.plantuml.SourceStringReader;
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.util.*;
 
@@ -59,6 +64,10 @@ public class UMLGenerator {
         uml.append("@startuml\n\n");
         uml.append("skinparam classAttributeIconSize 0\n\n");
 
+        // uml.append("skinparam dpi 300\n"); // Alta risoluzione per immagini raster
+        // uml.append("scale max 5000 width\n\n"); // Scala automaticamente per non
+        // superare la larghezza massima
+
         // Itera sui package (ordinati per nome).
         List<String> pkgNames = new ArrayList<>(packageMap.keySet());
         Collections.sort(pkgNames);
@@ -84,6 +93,92 @@ public class UMLGenerator {
 
         try (FileWriter writer = new FileWriter(outputFile)) {
             writer.write(uml.toString());
+        }
+    }
+
+    /**
+     * Genera il diagramma UML a partire dai file Java nella directory e produce
+     * un file SVG (o PDF) direttamente.
+     *
+     * @param sourceDir        La directory sorgente con i file Java.
+     * @param outputVectorFile Il file di output (con estensione .svg o .pdf).
+     * @param vectorFormat     Il formato vettoriale desiderato (FileFormat.SVG o
+     *                         FileFormat.PDF).
+     * @throws Exception In caso di errori.
+     */
+    public static void generateVectorFromDirectory(File sourceDir, File outputVectorFile, FileFormat vectorFormat)
+            throws Exception {
+        List<File> javaFiles = getJavaFiles(sourceDir);
+        Map<String, List<TypeDeclaration<?>>> packageMap = new HashMap<>();
+        Set<String> definedTypes = new HashSet<>();
+        Set<String> excludedTypes = new HashSet<>(Arrays.asList("App", "UMLGenerator", "UMLUtils"));
+
+        // Parsing di tutti i file Java e raggruppamento per package.
+        for (File file : javaFiles) {
+            CompilationUnit cu = StaticJavaParser.parse(file);
+            String pkgName = "";
+            Optional<PackageDeclaration> pkgDecl = cu.getPackageDeclaration();
+            if (pkgDecl.isPresent()) {
+                pkgName = pkgDecl.get().getNameAsString();
+            }
+            for (TypeDeclaration<?> type : cu.getTypes()) {
+                String typeName = type.getNameAsString();
+                if (excludedTypes.contains(typeName)) {
+                    continue; // Escludi le classi del generatore.
+                }
+                packageMap.computeIfAbsent(pkgName, k -> new ArrayList<>()).add(type);
+                definedTypes.add(typeName);
+            }
+        }
+
+        // Costruzione della stringa UML
+        StringBuilder uml = new StringBuilder();
+        StringBuilder relationships = new StringBuilder();
+        uml.append("@startuml\n\n");
+
+        // Imposta parametri per garantire un'alta risoluzione e una scalabilità
+        // automatica
+        uml.append("skinparam classAttributeIconSize 0\n");
+        uml.append("skinparam dpi 300\n"); // Alta risoluzione
+        uml.append("scale max 2000 width\n\n"); // Scala in automatico in base a una larghezza massima
+
+        List<String> pkgNames = new ArrayList<>(packageMap.keySet());
+        Collections.sort(pkgNames);
+        for (String pkgName : pkgNames) {
+            if (!pkgName.isEmpty()) {
+                uml.append("package ").append(pkgName).append(" {\n\n");
+            }
+            for (TypeDeclaration<?> type : packageMap.get(pkgName)) {
+                if (type instanceof ClassOrInterfaceDeclaration) {
+                    processType((ClassOrInterfaceDeclaration) type, uml, relationships, definedTypes);
+                } else if (type instanceof EnumDeclaration) {
+                    processEnum((EnumDeclaration) type, uml);
+                }
+            }
+            if (!pkgName.isEmpty()) {
+                uml.append("}\n\n");
+            }
+        }
+
+        // Aggiunge le relazioni e chiude il diagramma.
+        uml.append(relationships);
+        uml.append("\n@enduml");
+
+        // Se desideri anche salvare il file .puml, puoi scommentare il seguente blocco:
+        /*
+         * try (FileWriter writer = new FileWriter(new File("diagramma.puml"))) {
+         * writer.write(uml.toString());
+         * }
+         */
+
+        // Genera il file vettoriale (SVG o PDF) utilizzando l'API di PlantUML
+        try (FileOutputStream fos = new FileOutputStream(outputVectorFile)) {
+            SourceStringReader reader = new SourceStringReader(uml.toString());
+            // Il metodo outputImage scrive il diagramma nel formato specificato sull'output
+            // stream.
+            reader.outputImage(fos, new FileFormatOption(vectorFormat));
+            System.out.println(
+                    "Diagramma generato in formato " + vectorFormat + " in: " + outputVectorFile.getAbsolutePath());
         }
     }
 

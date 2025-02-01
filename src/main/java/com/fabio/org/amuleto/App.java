@@ -12,6 +12,8 @@ package com.fabio.org.amuleto;
 
 import java.io.File;
 
+import net.sourceforge.plantuml.FileFormat;
+
 public class App {
     public static void main(String[] args) throws Exception {
         // Inizializzazione delle variabili con valori di default
@@ -38,9 +40,11 @@ public class App {
         }
 
         File outputFile = new File(outputFilePath);
+        File outputSVG = new File("diagramma.svg"); // nome del file di output
 
         // Avvia la generazione del diagramma UML a partire dalla directory specificata
-        UMLGenerator.generateFromDirectory(sourceDir, outputFile);
+        // UMLGenerator.generateFromDirectory(sourceDir, outputFile);
+        UMLGenerator.generateVectorFromDirectory(sourceDir, outputSVG, FileFormat.SVG);
 
         System.out.println("File UML generato: " + outputFile.getAbsolutePath());
     }
