@@ -22,7 +22,7 @@
 
 ---
 
-![UML Generator Logo](https://github.com/fabiobassini/aMULeto/demo/amuleto.png)  
+![UML Generator Logo](https://github.com/fabiobassini/aMULeto/blob/main/demo/amuleto.png)  
 *Figure 1: aMULeto logo.*
 
 
@@ -56,7 +56,7 @@ This tool analyzes a multi-file Java project using [JavaParser](https://javapars
 
 ## 🎥 Demo
 
-![UML Generator Demo](https://github.com/fabiobassini/aMULeto/demo/demo.png)  
+![UML Generator Demo](https://github.com/fabiobassini/aMULeto/blob/main/demo/demo.png)  
 *Figure 1: aMULeto demo diagram.*
 
 ---
