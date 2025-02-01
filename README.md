@@ -5,6 +5,11 @@
 ![PlantUML](https://img.shields.io/badge/PlantUML-1.2021.14-blue.svg)
 ![JavaParser](https://img.shields.io/badge/JavaParser-3.25.4-blue.svg)
 
+
+<div align="center">
+  <img src="https://github.com/fabiobassini/aMULeto/blob/main/demo/amuleto.png" alt="Header" width="350"/>
+</div>
+
 ## 📑 Table of Contents
 
 1. [Introduction](#introduction)
@@ -22,9 +27,6 @@
 
 ---
 
-<div align="center">
-  <img src="https://github.com/fabiobassini/aMULeto/blob/main/demo/amuleto.png" alt="Header" width="350"/>
-</div>
 
 
 ## 📌 Introduction
