@@ -27,3 +27,5 @@ Thumbs.db
 
 # manifesto jar 
 original-aMULeto-1.0-SNAPSHOT.jar
+
+dependency-reduced-pom.xml
