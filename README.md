@@ -22,8 +22,9 @@
 
 ---
 
-![UML Generator Logo](https://github.com/fabiobassini/aMULeto/blob/main/demo/amuleto.png)  
-*Figure 1: aMULeto logo.*
+<div align="center">
+  <img src="https://github.com/fabiobassini/aMULeto/blob/main/demo/amuleto.png" alt="Header" width="350"/>
+</div>
 
 
 ## 📌 Introduction
