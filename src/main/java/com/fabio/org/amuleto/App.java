@@ -1,7 +1,6 @@
 package com.fabio.org.amuleto;
 
 import java.io.File;
-
 import com.fabio.org.amuleto.converter.UMLGenerator;
 import com.fabio.org.amuleto.view.GraphicalEditorUI;
 import net.sourceforge.plantuml.FileFormat;
