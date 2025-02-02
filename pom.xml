@@ -11,18 +11,21 @@
   <url>http://maven.apache.org</url>
   
   <dependencies>
+    <!-- JUnit 4 per i test -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.1</version> <!-- JUnit 4 -->
+        <scope>test</scope>
     </dependency>
+
     <!-- JavaParser per l'analisi del codice Java -->
     <dependency>
       <groupId>com.github.javaparser</groupId>
       <artifactId>javaparser-core</artifactId>
       <version>3.25.1</version>
     </dependency>
+
     <!-- PlantUML per generare diagrammi UML -->
     <dependency>
       <groupId>net.sourceforge.plantuml</groupId>
@@ -35,28 +38,19 @@
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>2.10</version>
-  </dependency>
+    </dependency>
 
-  <!-- JSVGCanvas -->
-  <dependency>
-    <groupId>org.apache.xmlgraphics</groupId>
-    <artifactId>batik-swing</artifactId>
-    <version>1.14</version>
-  </dependency>
-
-  <!-- Batik -->
-  <dependency>
-    <groupId>org.apache.xmlgraphics</groupId>
-    <artifactId>batik-swing</artifactId>
-    <version>1.14</version>
-  </dependency>
-
-
-
+    <!-- Batik -->
+    <dependency>
+      <groupId>org.apache.xmlgraphics</groupId>
+      <artifactId>batik-swing</artifactId>
+      <version>1.14</version>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
+
       <!-- Plugin per compilare con Java 17 -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -80,7 +74,6 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <!-- Impostazione di default: esegue com.fabio.org.amuleto.App -->
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <mainClass>com.fabio.org.amuleto.App</mainClass>
@@ -90,6 +83,18 @@
           </execution>
         </executions>
       </plugin>
+
+  <!-- Configura il surefire plugin per eseguire i test -->
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <version>2.22.2</version> <!-- Versione più stabile -->
+      <configuration>
+        <forkCount>1</forkCount>
+        <reuseForks>false</reuseForks>
+      </configuration>
+    </plugin>
+
     </plugins>
   </build>
 
@@ -115,4 +120,3 @@
     </profile>
   </profiles>
 </project>
-

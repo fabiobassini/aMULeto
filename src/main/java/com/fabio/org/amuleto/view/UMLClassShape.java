@@ -186,6 +186,10 @@ public class UMLClassShape {
         return total;
     }
 
+    public int getComputeHeight(Graphics g) {
+        return computeHeight(g);
+    }
+
     /**
      * Restituisce il rettangolo che rappresenta i confini della classe sul canvas.
      *
