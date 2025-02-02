@@ -83,7 +83,7 @@ public class UMLGenerator {
         // implementazioni, ecc.)
         StringBuilder relationships = new StringBuilder();
         // Set per evitare duplicati nelle relazioni di dependency
-        Set<String> dependencyRels = new HashSet<>();
+        // Set<String> dependencyRels = new HashSet<>();
 
         // Inizio del diagramma PlantUML
         uml.append("@startuml\n\n");

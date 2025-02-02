@@ -63,7 +63,7 @@ This tool analyzes a multi-file Java project using [JavaParser](https://javapars
 
 ## 🎥 Demo
 
-![UML Generator Demo](https://github.com/fabiobassini/aMULeto/blob/main/demo/demo.png)  
+![UML Generator Demo](https://github.com/fabiobassini/aMULeto/blob/main/demo/amuleto.gif)  
 *Figure 1: aMULeto demo diagram.*
 
 ---

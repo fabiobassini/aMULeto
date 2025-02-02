@@ -25,7 +25,7 @@ public class App {
         } else {
             // Modalità command line: forward engineering (Java code -> UML)
             String sourceDirPath = args[0];
-            String outputFilePath = (args.length >= 2) ? args[1] : "diagramma.puml";
+            // String outputFilePath = (args.length >= 2) ? args[1] : "diagramma.puml";
 
             File sourceDir = new File(sourceDirPath);
             if (!sourceDir.exists() || !sourceDir.isDirectory()) {
