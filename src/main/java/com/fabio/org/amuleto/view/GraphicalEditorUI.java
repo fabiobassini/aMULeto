@@ -102,8 +102,8 @@ public class GraphicalEditorUI extends JFrame {
 
         // Menu item per generare e visualizzare il diagramma SVG a partire dal codice
         // Java
-        JMenuItem viewSVGItem = new JMenuItem("Visualizza Diagramma SVG");
-        viewSVGItem.addActionListener((ActionEvent e) -> {
+        JMenuItem genSVGItem = new JMenuItem("Genera Diagramma SVG");
+        genSVGItem.addActionListener((ActionEvent e) -> {
             // Apertura di un JFileChooser per selezionare la directory del progetto Java
             JFileChooser chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -124,6 +124,32 @@ public class GraphicalEditorUI extends JFrame {
                     JOptionPane.showMessageDialog(GraphicalEditorUI.this,
                             "Errore durante la generazione del diagramma: " + ex.getMessage());
                 }
+            }
+        });
+        fileMenu.add(genSVGItem);
+
+        // Nuova opzione: visualizza un file SVG selezionato
+        JMenuItem viewSVGItem = new JMenuItem("Visualizza Diagramma SVG");
+        viewSVGItem.addActionListener((ActionEvent e) -> {
+            // Utilizza JFileChooser per selezionare un file con estensione .svg
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Seleziona file SVG");
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            // Imposta un filtro per mostrare solo file SVG
+            fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+                @Override
+                public boolean accept(File f) {
+                    return f.isDirectory() || f.getName().toLowerCase().endsWith(".svg");
+                }
+
+                @Override
+                public String getDescription() {
+                    return "File SVG (*.svg)";
+                }
+            });
+            if (fileChooser.showOpenDialog(GraphicalEditorUI.this) == JFileChooser.APPROVE_OPTION) {
+                File svgFile = fileChooser.getSelectedFile();
+                displaySVG(svgFile); // Visualizza il file SVG selezionato
             }
         });
         fileMenu.add(viewSVGItem);
