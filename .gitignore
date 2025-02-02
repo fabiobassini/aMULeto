@@ -9,6 +9,9 @@
 /.project
 /.settings/
 
+# cartelle di backup
+/backup/
+
 # Cartella delle impostazioni di VS Code
 .vscode/
 

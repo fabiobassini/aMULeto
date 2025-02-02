@@ -37,6 +37,25 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>ui</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-shade-plugin</artifactId>
+            <configuration>
+              <transformers>
+                <transformer>
+                  <mainClass>com.fabio.org.amuleto.ui.GraphicalEditorUI</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

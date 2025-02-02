@@ -1,4 +1,4 @@
-package com.fabio.org.amuleto;
+package com.fabio.org.amuleto.utils;
 
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.FieldDeclaration;
