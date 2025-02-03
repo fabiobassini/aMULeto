@@ -97,7 +97,7 @@ You can either build the project from source or use the precompiled JAR file.
   ```
 
 #### Option 2: Use Precompiled JAR
-Download the latest release from the [Releases](https://github.com/fabiobassini/uml-generator/releases) section and use it directly.
+Download the latest release from the [Releases](https://github.com/fabiobassini/aMULeto/releases) section and use it directly.
 
 ---
 
