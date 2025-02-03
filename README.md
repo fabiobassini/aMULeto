@@ -83,7 +83,7 @@ You can either build the project from source or use the precompiled JAR file.
 1. **Clone the Repository:**
    ```bash
    git clone https://github.com/fabiobassini/aMULeto.git
-   cd uml-generator
+   cd aMULeto
    ```
 2. **Build the Project:**
   - Add a test project in config.properties
