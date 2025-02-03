@@ -1,4 +1,4 @@
-# UML Generator Application
+# aMULeto Application
 
 ![License](https://img.shields.io/badge/license-MIT%20with%20Commons%20Clause-blue.svg)
 ![Java](https://img.shields.io/badge/Java-8%2B-blue.svg)
@@ -82,7 +82,7 @@ You can either build the project from source or use the precompiled JAR file.
 #### Option 1: Build from Source
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/fabiobassini/uml-generator.git
+   git clone https://github.com/fabiobassini/aMULeto.git
    cd uml-generator
    ```
 2. **Build the Project:**
