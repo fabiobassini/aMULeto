@@ -158,7 +158,7 @@ Contributions are welcome! Please submit a pull request with a detailed descript
 
 ## 📩 Support
 
-For issues, open a GitHub [issue](https://github.com/fabiobassini/uml-generator/issues).
+For issues, open a GitHub [issue](https://github.com/fabiobassini/aMULeto/issues).
 
 
 
