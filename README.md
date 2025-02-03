@@ -91,9 +91,10 @@ You can either build the project from source or use the precompiled JAR file.
   projectDirectory=/Users/.../TestProject/src/main/
   ```
   
-  - ```bash
+  - 
+  ```bash
    mvn clean install
-   ```
+  ```
 
 #### Option 2: Use Precompiled JAR
 Download the latest release from the [Releases](https://github.com/fabiobassini/uml-generator/releases) section and use it directly.
