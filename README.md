@@ -86,7 +86,12 @@ You can either build the project from source or use the precompiled JAR file.
    cd uml-generator
    ```
 2. **Build the Project:**
-   ```bash
+  - Add a test project in config.properties
+  ```bash
+  projectDirectory=/Users/.../TestProject/src/main/
+  ```
+  
+  - ```bash
    mvn clean install
    ```
 
