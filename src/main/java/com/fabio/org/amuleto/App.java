@@ -3,9 +3,12 @@ package com.fabio.org.amuleto;
 import java.io.File;
 import com.fabio.org.amuleto.converter.UMLGenerator;
 import com.fabio.org.amuleto.view.GraphicalEditorUI;
+import com.formdev.flatlaf.FlatDarkLaf;
+
 import net.sourceforge.plantuml.FileFormat;
 
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -17,6 +20,13 @@ public class App {
             System.out.println("       java -jar app.jar <percorso_progetto> [percorso_output]");
             System.exit(1);
         } else if (args[0].equalsIgnoreCase("gui")) {
+
+            // Imposta il dark theme prima di lanciare la GUI
+            try {
+                UIManager.setLookAndFeel(new FlatDarkLaf());
+            } catch (Exception ex) {
+                System.err.println("Impossibile impostare il Dark LookAndFeel: " + ex);
+            }
             // Avvio modalità GUI
             SwingUtilities.invokeLater(() -> {
                 GraphicalEditorUI editor = new GraphicalEditorUI();
