@@ -174,9 +174,20 @@ public class GraphicalEditorUI extends JFrame {
      *
      * @return Il pannello della sidebar.
      */
+
     private JPanel createSidebar() {
+        // Pannello principale con layout verticale e bordo esterno
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setBackground(new Color(45, 45, 45));
+
+        // === Sezione Aggiunta Elementi ===
+        JPanel addElementsPanel = new JPanel();
+        addElementsPanel.setLayout(new BoxLayout(addElementsPanel, BoxLayout.Y_AXIS));
+        addElementsPanel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(new Color(70, 70, 70)), "Aggiungi Elementi"));
+        addElementsPanel.setBackground(new Color(45, 45, 45));
 
         // Pulsante per aggiungere una classe
         JButton addClassBtn = new JButton("Aggiungi Classe");
@@ -190,7 +201,9 @@ public class GraphicalEditorUI extends JFrame {
                 canvas.addShape(shape);
             }
         });
-        panel.add(addClassBtn);
+        addClassBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        addElementsPanel.add(addClassBtn);
+        addElementsPanel.add(Box.createVerticalStrut(10));
 
         // Pulsante per aggiungere un'interfaccia
         JButton addInterfaceBtn = new JButton("Aggiungi Interfaccia");
@@ -201,7 +214,9 @@ public class GraphicalEditorUI extends JFrame {
                 canvas.addShape(shape);
             }
         });
-        panel.add(addInterfaceBtn);
+        addInterfaceBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        addElementsPanel.add(addInterfaceBtn);
+        addElementsPanel.add(Box.createVerticalStrut(10));
 
         // Pulsante per aggiungere una classe associativa
         JButton addAssocClassBtn = new JButton("Aggiungi Classe Associativa");
@@ -213,37 +228,72 @@ public class GraphicalEditorUI extends JFrame {
                 canvas.addShape(shape);
             }
         });
-        panel.add(addAssocClassBtn);
+        addAssocClassBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        addElementsPanel.add(addAssocClassBtn);
+        addElementsPanel.add(Box.createVerticalStrut(10));
 
-        // Toggle button per abilitare la modalità di creazione di relazioni
+        panel.add(addElementsPanel);
+        panel.add(Box.createVerticalStrut(15));
+
+        // === Sezione Relazioni ===
+        JPanel relationsPanel = new JPanel();
+        relationsPanel.setLayout(new BoxLayout(relationsPanel, BoxLayout.Y_AXIS));
+        relationsPanel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(new Color(70, 70, 70)), "Relazioni"));
+        relationsPanel.setBackground(new Color(45, 45, 45));
+
+        // Toggle per abilitare la modalità relazione
         JToggleButton relModeToggle = new JToggleButton("Modalità Relazione");
         relModeToggle.addActionListener(e -> canvas.setRelationshipMode(relModeToggle.isSelected()));
-        panel.add(relModeToggle);
+        relModeToggle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        relationsPanel.add(relModeToggle);
+        relationsPanel.add(Box.createVerticalStrut(10));
 
-        // ComboBox per selezionare il tipo di relazione
+        // Pannello orizzontale per la label e il combo box
+        JPanel relTypePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
+        relTypePanel.setBackground(new Color(45, 45, 45));
+        JLabel relTypeLabel = new JLabel("Tipo Relazione:");
+        relTypeLabel.setForeground(Color.WHITE);
+        relTypePanel.add(relTypeLabel);
         JComboBox<RelationshipType> relTypeCombo = new JComboBox<>(RelationshipType.values());
         relTypeCombo.addActionListener(
                 e -> canvas.setCurrentRelationshipType((RelationshipType) relTypeCombo.getSelectedItem()));
-        panel.add(new JLabel("Tipo Relazione:"));
-        panel.add(relTypeCombo);
+        relTypePanel.add(relTypeCombo);
+        relationsPanel.add(relTypePanel);
 
-        // Slider per controllare lo zoom del canvas
-        // min: 50
+        panel.add(relationsPanel);
+        panel.add(Box.createVerticalStrut(15));
+
+        // === Sezione Zoom e Layout ===
+        JPanel zoomLayoutPanel = new JPanel();
+        zoomLayoutPanel.setLayout(new BoxLayout(zoomLayoutPanel, BoxLayout.Y_AXIS));
+        zoomLayoutPanel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(new Color(70, 70, 70)), "Zoom & Layout"));
+        zoomLayoutPanel.setBackground(new Color(45, 45, 45));
+
+        JLabel zoomLabel = new JLabel("Zoom:");
+        zoomLabel.setForeground(Color.WHITE);
+        zoomLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        zoomLayoutPanel.add(zoomLabel);
+        zoomLayoutPanel.add(Box.createVerticalStrut(5));
+
         JSlider zoomSlider = new JSlider(10, 200, 100);
         zoomSlider.setMajorTickSpacing(50);
         zoomSlider.setMinorTickSpacing(10);
         zoomSlider.setPaintTicks(true);
         zoomSlider.setPaintLabels(true);
         zoomSlider.addChangeListener(e -> canvas.setZoomFactor(zoomSlider.getValue() / 100.0));
-        panel.add(new JLabel("Zoom:"));
-        panel.add(zoomSlider);
+        zoomSlider.setAlignmentX(Component.CENTER_ALIGNMENT);
+        zoomLayoutPanel.add(zoomSlider);
+        zoomLayoutPanel.add(Box.createVerticalStrut(10));
 
-        // Pulsante per eseguire un layout automatico delle forme sul canvas
         JButton layoutBtn = new JButton("Layout Automatico");
         layoutBtn.addActionListener(e -> canvas.doDynamicLayout());
-        panel.add(layoutBtn);
+        layoutBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        zoomLayoutPanel.add(layoutBtn);
 
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.add(zoomLayoutPanel);
+
         return panel;
     }
 
