@@ -46,6 +46,14 @@
       <artifactId>batik-swing</artifactId>
       <version>1.14</version>
     </dependency>
+
+    <!-- Flatlaf -->
+  <dependency>
+      <groupId>com.formdev</groupId>
+      <artifactId>flatlaf</artifactId>
+      <version>2.6</version>
+  </dependency>
+
   </dependencies>
 
   <build>

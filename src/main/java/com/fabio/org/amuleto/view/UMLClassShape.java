@@ -37,6 +37,7 @@ public class UMLClassShape {
         this.attributes = new ArrayList<>();
         this.methods = new ArrayList<>();
         this.constructors = new ArrayList<>();
+
     }
 
     /**
@@ -226,22 +227,27 @@ public class UMLClassShape {
         int height = computeHeight(g);
         bounds = new Rectangle(x, y, width, height);
 
+        // Scegli colori per il dark theme:
+        Color backgroundColor = new Color(70, 70, 70); // Un grigio scuro
+        Color borderColor = new Color(180, 180, 180); // Un grigio chiaro per il bordo
+        Color textColor = Color.WHITE; // Testo in bianco
         // Disegna il rettangolo con stile diverso se la classe è associativa
         if (associationClass) {
             Stroke original = g2.getStroke();
             g2.setStroke(new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] { 5 }, 0));
-            g2.setColor(new Color(230, 230, 230));
+            g2.setColor(backgroundColor.darker());
             g2.fillRect(x, y, width, height);
-            g2.setColor(Color.BLACK);
+            g2.setColor(borderColor);
             g2.drawRect(x, y, width, height);
             g2.setStroke(original);
         } else {
-            g2.setColor(Color.WHITE);
+            g2.setColor(backgroundColor);
             g2.fillRect(x, y, width, height);
-            g2.setColor(Color.BLACK);
+            g2.setColor(borderColor);
             g2.drawRect(x, y, width, height);
         }
 
+        g2.setColor(textColor);
         FontMetrics fm = g2.getFontMetrics();
         int currentY = y + 10 + fm.getAscent();
 

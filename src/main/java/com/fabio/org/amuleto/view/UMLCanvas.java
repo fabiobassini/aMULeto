@@ -46,7 +46,7 @@ public class UMLCanvas extends JPanel implements MouseListener, MouseMotionListe
         addMouseListener(this);
         addMouseMotionListener(this);
         addMouseWheelListener(this);
-        setBackground(Color.WHITE);
+        setBackground(new Color(45, 45, 45));
     }
 
     /**

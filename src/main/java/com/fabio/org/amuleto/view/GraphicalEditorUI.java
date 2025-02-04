@@ -41,6 +41,10 @@ public class GraphicalEditorUI extends JFrame {
         setTitle("aMULeto GUI");
         setSize(1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Imposta lo sfondo della finestra (opzionale, FlatDarkLaf lo gestisce già)
+        getContentPane().setBackground(new Color(45, 45, 45));
+
         diagram = new UMLDiagram();
         canvas = new UMLCanvas();
         controller = new UMLController(diagram, canvas);
@@ -54,13 +58,18 @@ public class GraphicalEditorUI extends JFrame {
     private void initComponents() {
         // Creazione della sidebar
         JPanel sidebar = createSidebar();
+
+        // Imposta lo sfondo della sidebar
+        sidebar.setBackground(new Color(45, 45, 45));
         // Creazione di un JSplitPane per dividere la sidebar dal canvas
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebar, new JScrollPane(canvas));
         splitPane.setDividerLocation(250);
+        splitPane.setBackground(new Color(45, 45, 45));
         getContentPane().add(splitPane, BorderLayout.CENTER);
 
         // Creazione del menu bar e del menu File
         JMenuBar menuBar = new JMenuBar();
+        menuBar.setBackground(new Color(60, 60, 60));
         JMenu fileMenu = new JMenu("File");
 
         // Menu item per salvare il diagramma (modello) in formato JSON
