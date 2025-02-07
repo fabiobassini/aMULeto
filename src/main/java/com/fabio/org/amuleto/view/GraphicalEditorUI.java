@@ -9,6 +9,7 @@ import com.fabio.org.amuleto.model.UMLConnection;
 import com.fabio.org.amuleto.serialization.DiagramSerializer;
 import net.sourceforge.plantuml.FileFormat;
 import org.apache.batik.swing.JSVGCanvas;
+// import org.w3c.dom.events.MouseEvent;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -18,6 +19,10 @@ import java.awt.event.ActionEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
+// import java.awt.geom.AffineTransform;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+// import java.awt.event.MouseMotionListener;
 
 /**
  * Finestra principale dell'editor UML.
@@ -368,11 +373,15 @@ public class GraphicalEditorUI extends JFrame {
      */
     private void displaySVG(File svgFile) {
         JFrame svgFrame = new JFrame("Diagramma UML SVG");
+        svgFrame.getContentPane().setBackground(new Color(45, 45, 45));
         svgFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         svgFrame.setLayout(new BorderLayout());
 
         // Crea il canvas per visualizzare l'SVG utilizzando Batik
         JSVGCanvas svgCanvas = new JSVGCanvas();
+
+        svgCanvas.setBackground(new Color(45, 45, 45));
+
         svgCanvas.setDocumentState(JSVGCanvas.ALWAYS_DYNAMIC);
         try {
             svgCanvas.setURI(svgFile.toURI().toString());
@@ -381,7 +390,36 @@ public class GraphicalEditorUI extends JFrame {
             return;
         }
 
-        // Crea uno slider per controllare lo zoom (valori da 20% a 200%)
+        // un array per conservare il punto dell'ultimo evento
+        final Point[] lastPoint = new Point[1];
+
+        // un MouseListener per registrare il punto di partenza
+        svgCanvas.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                lastPoint[0] = e.getPoint();
+            }
+        });
+
+        // un MouseMotionListener per gestire il trascinamento
+        svgCanvas.addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                if (lastPoint[0] != null) {
+                    Point currentPoint = e.getPoint();
+                    double dx = currentPoint.getX() - lastPoint[0].getX();
+                    double dy = currentPoint.getY() - lastPoint[0].getY();
+
+                    // Ottieni il transform corrente e applica la traduzione
+                    AffineTransform at = svgCanvas.getRenderingTransform();
+                    at.translate(dx, dy);
+                    svgCanvas.setRenderingTransform(at, true);
+
+                    // Aggiorno il punto di riferimento
+                    lastPoint[0] = currentPoint;
+                }
+            }
+        });
+
+        // Creo uno slider per controllare lo zoom (valori da 20% a 200%)
         JSlider zoomSlider = new JSlider(10, 200, 100);
         zoomSlider.setMajorTickSpacing(50);
         zoomSlider.setMinorTickSpacing(10);

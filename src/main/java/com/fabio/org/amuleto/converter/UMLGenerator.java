@@ -86,8 +86,23 @@ public class UMLGenerator {
         // Set<String> dependencyRels = new HashSet<>();
 
         // Inizio del diagramma PlantUML
-        uml.append("@startuml\n\n");
+        uml.append("@startuml\n");
         uml.append("skinparam classAttributeIconSize 0\n\n");
+        uml.append("skinparam backgroundColor #2E2E2E\n"); // Sfondo generale scuro
+        uml.append("skinparam shadowing false\n"); // Disabilita ombre (opzionale)
+        uml.append("skinparam classAttributeIconSize 0\n\n");
+        uml.append("skinparam classFontColor white\n");
+
+        // Imposta lo sfondo delle classi e il colore dei bordi
+        uml.append("skinparam classBackgroundColor #3E3E3E\n");
+        uml.append("skinparam classBorderColor #AAAAAA\n");
+
+        // Imposta il colore predefinito del testo a bianco
+        uml.append("skinparam defaultTextColor white\n");
+
+        // Imposta il colore delle frecce e delle linee
+        uml.append("skinparam arrowColor #CCCCCC\n");
+        uml.append("\n");
 
         // Itera sui nomi dei package in ordine alfabetico
         List<String> pkgNames = new ArrayList<>(packageMap.keySet());
@@ -141,7 +156,9 @@ public class UMLGenerator {
         // Set per raccogliere i nomi dei tipi definiti
         Set<String> definedTypes = new HashSet<>();
         // Set di nomi da escludere (quelle relative al generatore)
-        Set<String> excludedTypes = new HashSet<>(Arrays.asList("App", "UMLGenerator", "UMLUtils"));
+        // Set<String> excludedTypes = new HashSet<>(Arrays.asList("App",
+        // "UMLGenerator", "UMLUtils"));
+        Set<String> excludedTypes = new HashSet<>(Arrays.asList(""));
 
         // Parsing e raggruppamento per package, simile al metodo precedente
         for (File file : javaFiles) {
@@ -164,20 +181,42 @@ public class UMLGenerator {
         // Costruzione della stringa UML
         StringBuilder uml = new StringBuilder();
         StringBuilder relationships = new StringBuilder();
-        uml.append("@startuml\n\n");
+        uml.append("@startuml\n");
 
         // Imposta parametri di rendering per un'alta risoluzione e scalabilità
         // automatica
         uml.append("skinparam classAttributeIconSize 0\n");
         uml.append("skinparam dpi 300\n");
-        uml.append("scale max 2000 width\n\n");
+        uml.append("scale max 2000 width\n");
+        uml.append("skinparam backgroundColor #2E2E2E\n"); // Sfondo generale scuro
+        uml.append("skinparam shadowing false\n"); // Disabilita ombre (opzionale)
+        uml.append("skinparam classAttributeIconSize 0\n");
+        uml.append("skinparam classFontColor white\n");
+        uml.append("skinparam arrowFontColor white\n");
+        uml.append("skinparam packageFontColor white\n");
+        uml.append("skinparam packageTitleFontColor white\n");
+        uml.append("skinparam stereotypeFontColor white\n"); // Testo degli <<stereotype>> in bianco
+        uml.append("skinparam packageFontColor white\n"); // Testo nei package in bianco
+        uml.append("skinparam packageTitleFontColor white\n");
+        uml.append("skinparam packageBorderColor white\n");
+
+        // Imposta lo sfondo delle classi e il colore dei bordi
+        uml.append("skinparam classBackgroundColor #3E3E3E\n");
+        uml.append("skinparam classBorderColor #AAAAAA\n");
+
+        // Imposta il colore predefinito del testo a bianco
+        uml.append("skinparam defaultTextColor white\n");
+
+        // Imposta il colore delle frecce e delle linee
+        uml.append("skinparam arrowColor #CCCCCC\n");
+        // uml.append("\n");
 
         // Itera sui package in ordine alfabetico
         List<String> pkgNames = new ArrayList<>(packageMap.keySet());
         Collections.sort(pkgNames);
         for (String pkgName : pkgNames) {
             if (!pkgName.isEmpty()) {
-                uml.append("package ").append(pkgName).append(" {\n\n");
+                uml.append("package ").append(pkgName).append(" {\n");
             }
             for (TypeDeclaration<?> type : packageMap.get(pkgName)) {
                 if (type instanceof ClassOrInterfaceDeclaration) {
@@ -187,9 +226,10 @@ public class UMLGenerator {
                 }
             }
             if (!pkgName.isEmpty()) {
-                uml.append("}\n\n");
+                uml.append("}\n");
             }
         }
+        uml.append("\n");
         // Aggiunge le relazioni raccolte e chiude il diagramma
         uml.append(relationships);
         uml.append("\n@enduml");
