@@ -30,7 +30,7 @@
 
 ## 📌 Introduction
 
-Welcome to the **UML Generator Application**!  
+Welcome to the **aMULeto Application**!  
 This tool analyzes a multi-file Java project using [JavaParser](https://javaparser.org/) and automatically generates a UML class diagram in [PlantUML](http://plantuml.com/) format. The application helps developers visualize the architecture of their Java applications by displaying classes, interfaces, enumerations, and their relationships.
 
 ### 🔹 Key Enhancements:
