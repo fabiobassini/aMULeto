@@ -21,10 +21,17 @@ jobs:
         with:
           path: ~/.m2
           key: maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: maven-
+          restore-keys: |
+            maven-
 
       - name: Apply Spotless (format code)
         run: mvn spotless:apply
 
       - name: Run Checkstyle (validate code style)
         run: mvn checkstyle:check
+        env:
+          CHECKSTYLE_CONFIG: checkstyle.yml
+
+      - name: Debug Checkstyle Output
+        if: always()
+        run: cat target/checkstyle-result.xml || echo "No checkstyle result file found"

@@ -107,7 +107,12 @@
             <importOrder>
                 <order>java, javax, org, com</order>
             </importOrder>
-
+            <replace>
+                <name>Avoid Star Imports</name>
+                <search>\bimport\s+([\w\.]+)\.\*;</search>
+                <replacement>import \1;</replacement>
+            </replace>
+            
             <formatAnnotations/>  <!-- Riformatta annotazioni -->
         </java>
     </configuration>
