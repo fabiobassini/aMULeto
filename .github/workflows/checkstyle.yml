@@ -13,7 +13,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'  # Adoptium JDK
+          distribution: 'temurin'
           java-version: '17'
 
       - name: Cache Maven dependencies
@@ -23,5 +23,8 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: maven-
 
-      - name: Install Checkstyle
+      - name: Apply Spotless (format code)
+        run: mvn spotless:apply
+
+      - name: Run Checkstyle (validate code style)
         run: mvn checkstyle:check
