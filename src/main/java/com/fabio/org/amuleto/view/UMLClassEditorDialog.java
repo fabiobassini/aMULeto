@@ -1,11 +1,12 @@
 package com.fabio.org.amuleto.view;
 
-import com.fabio.org.amuleto.model.UMLAttribute;
-import com.fabio.org.amuleto.model.UMLMethod;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.stream.Collectors;
 import javax.swing.*;
+
+import com.fabio.org.amuleto.model.UMLAttribute;
+import com.fabio.org.amuleto.model.UMLMethod;
 
 /**
  * Dialogo per la modifica di una classe UML. Permette di aggiornare il nome, gli attributi, i

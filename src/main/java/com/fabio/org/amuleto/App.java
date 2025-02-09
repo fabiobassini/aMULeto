@@ -1,11 +1,12 @@
 package com.fabio.org.amuleto;
 
-import com.fabio.org.amuleto.converter.UMLGenerator;
-import com.fabio.org.amuleto.view.GraphicalEditorUI;
-import com.formdev.flatlaf.FlatDarkLaf;
 import java.io.File;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
+import com.fabio.org.amuleto.converter.UMLGenerator;
+import com.fabio.org.amuleto.view.GraphicalEditorUI;
+import com.formdev.flatlaf.FlatDarkLaf;
 import net.sourceforge.plantuml.FileFormat;
 
 public class App {

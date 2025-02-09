@@ -2,10 +2,11 @@ package com.fabio.org.amuleto.model;
 
 import static org.junit.Assert.*;
 
-import com.fabio.org.amuleto.view.RelationshipType;
-import com.fabio.org.amuleto.view.UMLClassShape;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
+import com.fabio.org.amuleto.view.RelationshipType;
+import com.fabio.org.amuleto.view.UMLClassShape;
 import org.junit.Test;
 
 public class UMLConnectionTest {

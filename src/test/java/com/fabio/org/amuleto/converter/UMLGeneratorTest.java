@@ -2,8 +2,9 @@ package com.fabio.org.amuleto.converter;
 
 import static org.junit.Assert.*;
 
-import com.fabio.org.amuleto.loader.ConfigLoader;
 import java.io.File;
+
+import com.fabio.org.amuleto.loader.ConfigLoader;
 import org.junit.Test;
 
 public class UMLGeneratorTest {

@@ -1,15 +1,15 @@
 package com.fabio.org.amuleto.utils;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.FieldDeclaration;
-// import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
 import com.github.javaparser.ast.nodeTypes.NodeWithModifiers;
 import com.github.javaparser.ast.type.ArrayType;
 import com.github.javaparser.ast.type.Type;
-import java.util.Arrays;
-import java.util.List;
 
 public class UMLUtils {
 

@@ -1,11 +1,12 @@
 package com.fabio.org.amuleto.view;
 
-import com.fabio.org.amuleto.model.UMLAttribute;
-import com.fabio.org.amuleto.model.UMLMethod;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingUtilities;
+
+import com.fabio.org.amuleto.model.UMLAttribute;
+import com.fabio.org.amuleto.model.UMLMethod;
 
 /**
  * Rappresenta graficamente una classe (o interfaccia) in un diagramma UML. Gestisce la posizione,

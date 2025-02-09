@@ -1,11 +1,12 @@
 package com.fabio.org.amuleto.serialization;
 
-import com.fabio.org.amuleto.model.UMLDiagram;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import com.fabio.org.amuleto.model.UMLDiagram;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Classe responsabile della serializzazione e deserializzazione del modello UMLDiagram. Utilizza

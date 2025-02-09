@@ -1,11 +1,12 @@
 package com.fabio.org.amuleto.view;
 
-import com.fabio.org.amuleto.model.UMLConnection;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+
+import com.fabio.org.amuleto.model.UMLConnection;
 
 /**
  * Classe che rappresenta il canvas in cui vengono disegnate le forme UML e le relative connessioni.

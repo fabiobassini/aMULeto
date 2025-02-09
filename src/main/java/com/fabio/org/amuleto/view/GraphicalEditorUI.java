@@ -1,5 +1,16 @@
 package com.fabio.org.amuleto.view;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import com.fabio.org.amuleto.controller.UMLController;
 import com.fabio.org.amuleto.converter.UMLGenerator;
 import com.fabio.org.amuleto.model.UMLAttribute;
@@ -7,18 +18,6 @@ import com.fabio.org.amuleto.model.UMLConnection;
 import com.fabio.org.amuleto.model.UMLDiagram;
 import com.fabio.org.amuleto.model.UMLMethod;
 import com.fabio.org.amuleto.serialization.DiagramSerializer;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-// import java.awt.event.MouseMotionListener;
-import java.awt.geom.AffineTransform;
-import java.io.File;
-import java.io.IOException;
-// import java.awt.geom.AffineTransform;
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import net.sourceforge.plantuml.FileFormat;
 import org.apache.batik.swing.JSVGCanvas;
 // import org.w3c.dom.events.MouseEvent;
