@@ -3,7 +3,7 @@ package com.fabio.org.amuleto.model;
 import java.awt.*;
 
 import com.fabio.org.amuleto.view.RelationshipType;
-import com.fabio.org.amuleto.view.UMLClassShape;
+import com.fabio.org.amuleto.view.shapes.UMLClassShape;
 
 /**
  * Rappresenta una connessione (relazione) tra due forme UML. Contiene informazioni sulla forma

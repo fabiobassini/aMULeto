@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import com.fabio.org.amuleto.view.RelationshipType;
-import com.fabio.org.amuleto.view.UMLClassShape;
+import com.fabio.org.amuleto.view.shapes.UMLClassShape;
 import org.junit.Test;
 
 public class UMLConnectionTest {

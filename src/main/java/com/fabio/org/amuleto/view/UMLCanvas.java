@@ -1,135 +1,73 @@
 package com.fabio.org.amuleto.view;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
 import com.fabio.org.amuleto.model.UMLConnection;
+import com.fabio.org.amuleto.view.shapes.UMLClassShape;
 
-/**
- * Classe che rappresenta il canvas in cui vengono disegnate le forme UML e le relative connessioni.
- * Implementa i listener per il mouse (clic, trascinamento e rotella) per gestire operazioni di drag
- * & drop, creazione di connessioni e zoom.
- */
-public class UMLCanvas extends JPanel
-    implements MouseListener, MouseMotionListener, MouseWheelListener {
-
+public class UMLCanvas extends JPanel {
   // Lista delle forme UML (classi, interfacce, ecc.)
   private List<UMLClassShape> shapes;
   // Lista delle connessioni tra le forme
   private List<UMLConnection> connections;
-
-  // Variabili per la gestione del drag & drop e della creazione di connessioni
-  private UMLClassShape selectedShape = null; // Forma attualmente selezionata per il movimento
-  private Point lastMousePosition = null; // Ultima posizione del mouse (per calcolare il delta)
-  private UMLClassShape connectionSource =
-      null; // Forma sorgente per la creazione di una connessione
-  private Point currentMousePosition =
-      null; // Posizione corrente del mouse durante la creazione della connessione
-  private boolean isCreatingConnection = false; // Flag che indica se si sta creando una connessione
-  private boolean relationshipMode = false; // Modalità attiva per la creazione di relazioni
-  // Tipo corrente di relazione da creare, di default ASSOCIATION
-  private RelationshipType currentRelType = RelationshipType.ASSOCIATION;
   // Fattore di zoom attuale (1.0 = 100%)
   private double zoomFactor = 1.0;
 
-  /**
-   * Costruttore di UMLCanvas. Inizializza le liste delle forme e delle connessioni, aggiunge i
-   * listener per il mouse e imposta il colore di sfondo.
-   */
+  // Riferimento al controller degli eventi del mouse
+  private UMLCanvasMouseController mouseController;
+
   public UMLCanvas() {
     shapes = new ArrayList<>();
     connections = new ArrayList<>();
-    addMouseListener(this);
-    addMouseMotionListener(this);
-    addMouseWheelListener(this);
+    // Imposta lo sfondo in dark-theme
     setBackground(new Color(45, 45, 45));
+    // Inizializza il controller degli eventi del mouse e registralo
+    // Crea e registra il controller del mouse
+    mouseController = new UMLCanvasMouseController(this);
+    addMouseListener(mouseController);
+    addMouseMotionListener(mouseController);
+    addMouseWheelListener(mouseController);
   }
 
-  /**
-   * Restituisce la lista delle forme UML presenti sul canvas.
-   *
-   * @return Lista delle forme UML.
-   */
+  // Metodi per accedere e modificare le forme e le connessioni
   public List<UMLClassShape> getShapes() {
     return shapes;
   }
 
-  /**
-   * Restituisce la lista delle connessioni presenti sul canvas.
-   *
-   * @return Lista delle connessioni.
-   */
   public List<UMLConnection> getConnections() {
     return connections;
   }
 
-  /**
-   * Imposta la lista delle forme UML.
-   *
-   * @param shapes Lista di forme UML.
-   */
   public void setShapes(List<UMLClassShape> shapes) {
     this.shapes = shapes;
+    repaint();
   }
 
-  /**
-   * Imposta la lista delle connessioni.
-   *
-   * @param connections Lista delle connessioni.
-   */
   public void setConnections(List<UMLConnection> connections) {
     this.connections = connections;
+    repaint();
   }
 
-  /**
-   * Imposta la modalità di relazione.
-   *
-   * @param mode true se si desidera abilitare la modalità di relazione, false altrimenti.
-   */
-  public void setRelationshipMode(boolean mode) {
-    this.relationshipMode = mode;
-  }
-
-  /**
-   * Imposta il tipo corrente di relazione.
-   *
-   * @param type Tipo di relazione da utilizzare per le nuove connessioni.
-   */
-  public void setCurrentRelationshipType(RelationshipType type) {
-    this.currentRelType = type;
-  }
-
-  /**
-   * Aggiunge una forma UML al canvas e forza il repaint.
-   *
-   * @param shape La forma UML da aggiungere.
-   */
   public void addShape(UMLClassShape shape) {
     shapes.add(shape);
     repaint();
   }
 
-  /**
-   * Aggiunge una connessione al canvas e forza il repaint.
-   *
-   * @param conn La connessione da aggiungere.
-   */
   public void addConnection(UMLConnection conn) {
     connections.add(conn);
     repaint();
   }
 
-  /**
-   * Imposta il fattore di zoom del canvas e forza il repaint.
-   *
-   * @param factor Nuovo fattore di zoom.
-   */
   public void setZoomFactor(double factor) {
     this.zoomFactor = factor;
     repaint();
+  }
+
+  public double getZoomFactor() {
+    return zoomFactor;
   }
 
   /**
@@ -151,13 +89,15 @@ public class UMLCanvas extends JPanel
     repaint();
   }
 
-  /**
-   * Esegue il rendering del canvas. Vengono disegnate prima le connessioni e poi le forme. Se si
-   * sta creando una connessione, viene disegnata anche una linea rossa che collega la forma
-   * sorgente alla posizione corrente del mouse.
-   *
-   * @param g Il contesto grafico su cui disegnare.
-   */
+  // Metodi delegati per la gestione delle relazioni
+  public void setRelationshipMode(boolean mode) {
+    mouseController.setRelationshipMode(mode);
+  }
+
+  public void setCurrentRelationshipType(RelationshipType type) {
+    mouseController.setCurrentRelationshipType(type);
+  }
+
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -172,155 +112,16 @@ public class UMLCanvas extends JPanel
     for (UMLClassShape shape : shapes) {
       shape.draw(g2);
     }
-    // Se si sta creando una connessione, disegna una linea rossa dal centro della
-    // forma sorgente alla posizione corrente del mouse
-    if (isCreatingConnection && connectionSource != null && currentMousePosition != null) {
-      Rectangle srcBounds = connectionSource.getBounds(g2);
-      int x1 = srcBounds.x + srcBounds.width / 2;
-      int y1 = srcBounds.y + srcBounds.height / 2;
-      g2.setColor(Color.RED);
-      g2.drawLine(x1, y1, currentMousePosition.x, currentMousePosition.y);
-    }
     g2.dispose();
   }
 
   /**
-   * Gestisce l'evento di pressione del mouse. Se il pulsante sinistro viene premuto: - In modalità
-   * relazione, ricerca la forma sotto il mouse e inizia la creazione di una connessione. - In
-   * modalità normale, ricerca la forma sotto il mouse per la selezione o per l'editing (doppio
-   * click).
+   * Traduce le coordinate del punto in base al fattore di zoom corrente.
    *
-   * @param e L'evento del mouse.
+   * @param p Il punto originale.
+   * @return Il punto tradotto in base allo zoom.
    */
-  @Override
-  public void mousePressed(MouseEvent e) {
-    Point p = translatePoint(e.getPoint());
-    if (SwingUtilities.isLeftMouseButton(e)) {
-      if (relationshipMode) {
-        for (UMLClassShape shape : shapes) {
-          if (shape.contains(p, getGraphics())) {
-            connectionSource = shape;
-            isCreatingConnection = true;
-            currentMousePosition = p;
-            break;
-          }
-        }
-      } else {
-        for (UMLClassShape shape : shapes) {
-          if (shape.contains(p, getGraphics())) {
-            selectedShape = shape;
-            lastMousePosition = p;
-            if (e.getClickCount() == 2) {
-              shape.openEditor(this);
-            }
-            break;
-          }
-        }
-      }
-    }
-  }
-
-  /**
-   * Gestisce l'evento di rilascio del mouse. Se si stava creando una connessione, verifica se il
-   * mouse è sopra un'altra forma e crea la connessione. Al termine, forza il repaint.
-   *
-   * @param e L'evento del mouse.
-   */
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    if (isCreatingConnection && connectionSource != null) {
-      Point p = translatePoint(e.getPoint());
-      for (UMLClassShape shape : shapes) {
-        if (shape.contains(p, getGraphics()) && shape != connectionSource) {
-          UMLConnection conn = new UMLConnection(connectionSource, shape, currentRelType);
-          connections.add(conn);
-          break;
-        }
-      }
-      isCreatingConnection = false;
-      connectionSource = null;
-      currentMousePosition = null;
-      repaint();
-    }
-    selectedShape = null;
-    lastMousePosition = null;
-  }
-
-  /**
-   * Gestisce l'evento di trascinamento del mouse. Se si sta creando una connessione, aggiorna la
-   * posizione corrente del mouse e forza il repaint. Se è selezionata una forma, ne aggiorna la
-   * posizione in base al movimento del mouse e forza il repaint.
-   *
-   * @param e L'evento di trascinamento del mouse.
-   */
-  @Override
-  public void mouseDragged(MouseEvent e) {
-    Point p = translatePoint(e.getPoint());
-    if (isCreatingConnection) {
-      currentMousePosition = p;
-      repaint();
-    } else if (selectedShape != null && lastMousePosition != null) {
-      int dx = p.x - lastMousePosition.x;
-      int dy = p.y - lastMousePosition.y;
-      selectedShape.setLocation(selectedShape.getX() + dx, selectedShape.getY() + dy);
-      lastMousePosition = p;
-      repaint();
-    }
-  }
-
-  /**
-   * Metodo non utilizzato per l'evento mouseClicked.
-   *
-   * @param e L'evento del mouse.
-   */
-  @Override
-  public void mouseClicked(MouseEvent e) {}
-
-  /**
-   * Metodo non utilizzato per l'evento mouseEntered.
-   *
-   * @param e L'evento del mouse.
-   */
-  @Override
-  public void mouseEntered(MouseEvent e) {}
-
-  /**
-   * Metodo non utilizzato per l'evento mouseExited.
-   *
-   * @param e L'evento del mouse.
-   */
-  @Override
-  public void mouseExited(MouseEvent e) {}
-
-  /**
-   * Metodo non utilizzato per l'evento mouseMoved.
-   *
-   * @param e L'evento del mouse.
-   */
-  @Override
-  public void mouseMoved(MouseEvent e) {}
-
-  /**
-   * Gestisce l'evento della rotella del mouse per il controllo dello zoom. Modifica il fattore di
-   * zoom in base al numero di "scatti" della rotella e forza il repaint.
-   *
-   * @param e L'evento della rotella del mouse.
-   */
-  @Override
-  public void mouseWheelMoved(MouseWheelEvent e) {
-    double delta = 0.05 * e.getWheelRotation();
-    zoomFactor = Math.max(0.1, zoomFactor - delta);
-    repaint();
-  }
-
-  /**
-   * Traduci il punto in base al fattore di zoom corrente. Permette di convertire le coordinate del
-   * mouse considerando lo zoom applicato.
-   *
-   * @param p Il punto con coordinate originali.
-   * @return Il punto convertito in coordinate reali sul canvas.
-   */
-  private Point translatePoint(Point p) {
+  public Point translatePoint(Point p) {
     return new Point((int) (p.x / zoomFactor), (int) (p.y / zoomFactor));
   }
 }
