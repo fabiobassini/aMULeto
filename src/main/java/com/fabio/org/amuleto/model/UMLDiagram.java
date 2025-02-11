@@ -3,7 +3,7 @@ package com.fabio.org.amuleto.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fabio.org.amuleto.view.UMLClassShape;
+import com.fabio.org.amuleto.view.shapes.UMLClassShape;
 
 /**
  * Rappresenta il modello del diagramma UML. Contiene le collezioni di forme UML (classi,

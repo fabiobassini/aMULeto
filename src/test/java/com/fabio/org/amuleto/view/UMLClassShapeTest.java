@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import com.fabio.org.amuleto.model.UMLAttribute;
 import com.fabio.org.amuleto.model.UMLMethod;
+import com.fabio.org.amuleto.view.shapes.UMLClassShape;
 import org.junit.Test;
 
 public class UMLClassShapeTest {
